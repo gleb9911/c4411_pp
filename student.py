@@ -57,3 +57,8 @@ for day in range(365):
        nick.live(day)
 
 
+
+
+
+
+
