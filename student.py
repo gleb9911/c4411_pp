@@ -1,4 +1,6 @@
 import random
+from tkinter.font import names
+
 
 class Student:
     def __init__(self, name):
@@ -62,8 +64,8 @@ class Student:
         self.is_alive()
 
 
-nick = Student(name="Nick")
-for day in range(1, 366):
+nick = Student(name="florian")
+for day in range(365):
     if not nick.alive:
         break
     nick.live(day)
