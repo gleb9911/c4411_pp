@@ -178,3 +178,5 @@ human = Human("Bob")
 for day in range(1, 8):
     if not human.live(day):
         break
+
+
