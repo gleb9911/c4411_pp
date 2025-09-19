@@ -40,6 +40,22 @@ class Job:
         self.salary = job_list[self.job_name]["salary"]
         self.gladness_less = job_list[self.job_name]["gladness_less"]
 
+
+class Pet:
+    def __init__(self, name="Pet"):
+        self.name = name
+        self.hunger = 30
+
+    def play(self):
+        self.hunger -= 5
+        print(f"{self.name} грається і веселить господаря!")
+
+    def eat(self):
+        self.hunger += 10
+        if self.hunger > 100:
+            self.hunger = 100
+        print(f"{self.name} поїв. Hunger: {self.hunger}")
+
 class Human:
     def __init__(self, name="Human"):
         self.name = name
@@ -49,6 +65,7 @@ class Human:
         self.car = None
         self.home = None
         self.job = None
+        self.pet = None
 
     def get_car(self):
         self.car = Auto(brands_of_car)
@@ -64,6 +81,10 @@ class Human:
             print(f"{self.name} got a job: {self.job.job_name}")
         else:
             self.to_repair()
+
+    def get_pet(self):
+        self.pet = Pet("Buddy")
+        print(f"{self.name} adopted a pet named {self.pet.name}")
 
     def eat(self):
         if self.home.food <= 0:
@@ -125,11 +146,27 @@ class Human:
         print("Car")
         print(f"Fuel - {self.car.fuel}")
         print(f"Strength - {self.car.strength}")
+        if self.pet:
+            print(f"Pet {self.pet.name} hunger - {self.pet.hunger}")
 
     def chill(self):
         self.gladness += 10
         self.satiety -= 5
         print(f"{self.name} relaxed. Gladness: {self.gladness}")
+
+
+    def play_with_pet(self):
+        if self.pet:
+            self.pet.play()
+            self.gladness += 15
+            print(f"{self.name} грається з {self.pet.name}. Gladness: {self.gladness}")
+
+    def feed_pet(self):
+        if self.pet and self.home.food >= 10:
+            self.home.food -= 10
+            self.pet.eat()
+        else:
+            print(f"{self.name} не має їжі, щоб погодувати {self.pet.name}")
 
     def is_alive(self):
         if self.gladness <= 0:
@@ -153,6 +190,9 @@ class Human:
         if self.job is None:
             self.get_job()
             print(f"{self.job.job_name}")
+        if self.pet is None:
+            self.get_pet()
+
         self.days_indexes(day)
 
         if self.satiety < 20:
@@ -166,6 +206,12 @@ class Human:
             self.work()
         elif self.car.strength < 15:
             self.to_repair()
+        else:
+
+            if random.choice([True, False]):
+                self.play_with_pet()
+            else:
+                self.feed_pet()
 
         return True
 
@@ -178,5 +224,6 @@ human = Human("Bob")
 for day in range(1, 8):
     if not human.live(day):
         break
+
 
 
